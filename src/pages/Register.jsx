@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Add from '../components/img/user.png';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +8,7 @@ const Register = () => {
     password: '',
     avatar: ''
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -37,6 +38,7 @@ const Register = () => {
     localStorage.setItem('userRegistration', JSON.stringify(formData));
     
     alert('Registration successful!');
+    navigate('/login'); // Redirect to login page after registration
   };
 
   return (
@@ -72,13 +74,9 @@ const Register = () => {
             id='file' 
             onChange={handleFileChange} 
           />
-          <label htmlFor='file'>
-            <img src={Add} alt=''/>
-            <span>Add an Avatar</span>
-          </label>
           <button type='submit'>Sign up</button>
         </form>
-        <p>You do have an account? Login</p>
+        <p>You do have an account? <Link to="/">Login</Link></p>
       </div>
     </div>
   );

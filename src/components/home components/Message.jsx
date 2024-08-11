@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const Message = ({ text, fetchMessages, file }) => {
+const Message = ({ text, file }) => {
   return (
     <div className='message owner'>
       <div className="messageContent">
