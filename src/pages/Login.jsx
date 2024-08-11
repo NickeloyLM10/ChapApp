@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,22 +15,28 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Retrieve user data from local storage
-    const storedData = JSON.parse(localStorage.getItem('userRegistration'));
-    
-    if (storedData) {
-      if (storedData.email === email && storedData.password === password) {
-        alert('Login successful!');
-        // Redirect to the home page
-        navigate('/home');
-      } else {
-        alert('Invalid email or password!');
-      }
-    } else {
-      alert('No registered user found!');
+
+    try {
+      // Send login request to Strapi
+      const response = await axios.post('http://localhost:1337/api/auth/local', {
+        identifier: email,
+        password
+      });
+
+      const { jwt, user } = response.data;
+
+      // Store token and user data in local storage
+      localStorage.setItem('jwt', jwt);
+      localStorage.setItem('currentUser', JSON.stringify(user));
+
+      alert('Login successful!');
+      // Redirect to the home page
+      navigate('/home');
+    } catch (error) {
+      console.error('Error logging in:', error);
+      alert('Invalid email or password!');
     }
   };
 
@@ -53,10 +60,10 @@ const Login = () => {
           />
           <button type='submit'>Sign in</button>
         </form>
-        <p>You don't have an account? Register</p>
+        <p>You don't have an account? <Link to="/register">Register</Link></p>
       </div>
     </div>
   );
-}
+};
 
 export default Login;

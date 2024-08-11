@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Add from '../components/img/user.png';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios'; // Import axios
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,7 @@ const Register = () => {
     password: '',
     avatar: ''
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -23,20 +25,32 @@ const Register = () => {
       reader.onload = () => {
         setFormData({
           ...formData,
-          avatar: reader.result
         });
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Save user data to local storage
-    localStorage.setItem('userRegistration', JSON.stringify(formData));
-    
-    alert('Registration successful!');
+    try {
+      // Save user data to local storage
+      localStorage.setItem('userRegistration', JSON.stringify(formData));
+
+      // Send user data to Strapi
+      await axios.post('http://localhost:1337/api/auth/local/register', {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      alert('Registration successful!');
+      navigate('/'); // Redirect to login page after registration
+    } catch (error) {
+      console.error('There was an error!', error);
+      alert('Registration failed. Please try again.');
+    }
   };
 
   return (
@@ -72,13 +86,9 @@ const Register = () => {
             id='file' 
             onChange={handleFileChange} 
           />
-          <label htmlFor='file'>
-            <img src={Add} alt=''/>
-            <span>Add an Avatar</span>
-          </label>
           <button type='submit'>Sign up</button>
         </form>
-        <p>You do have an account? Login</p>
+        <p>You do have an account? <Link to="/">Login</Link></p>
       </div>
     </div>
   );

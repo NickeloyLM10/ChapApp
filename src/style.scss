@@ -201,6 +201,65 @@
         .chat{
             flex: 2;
 
+            .chatInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+
+.chatTitle {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.chatIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoutButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.logoutButton:hover {
+  background-color: #d32f2f;
+}
+.send button {
+    background-color: #007bff; /* Primary blue color */
+    color: white; /* White text color */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Padding for button */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+  }
+  
+  .send button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .send button:active {
+    background-color: #004085; /* Even darker blue when clicked */
+  }
+  
+  .send button:focus {
+    outline: none; /* Remove focus outline */
+  }
+  
+
             .chatInfo{
                 height: 50px;
                 background-color: #5d5b8d;
@@ -210,6 +269,31 @@
                 padding: 10px;
                 color: lightgray;
             }
+            
+              
+              .logoutButton {
+                background-color: #f44336;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+                margin-right: auto; /* Pushes the button to the left */
+              }
+              
+              .logoutButton:hover {
+                background-color: #d32f2f;
+              }
+              
+              .chatTitle {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 24px;
+                font-weight: bold;
+              }
+              
 
             .chatIcons{
                 display: flex;
