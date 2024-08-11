@@ -7,7 +7,6 @@ const Register = () => {
     username: '',
     email: '',
     password: '',
-    avatar: ''
   });
   const navigate = useNavigate();
 
@@ -51,6 +50,11 @@ const Register = () => {
       console.error('There was an error!', error);
       alert('Registration failed. Please try again.');
     }
+    // Save user data to local storage
+    localStorage.setItem('userRegistration', JSON.stringify(formData));
+    
+    alert('Registration successful!');
+    navigate('/'); // Redirect to login page after registration
   };
 
   return (

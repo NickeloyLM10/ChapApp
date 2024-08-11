@@ -31,17 +31,15 @@ const Chat = () => {
   }, []);
 
   const handleLogout = () => {
-    // Clear any user-specific data if needed
     localStorage.removeItem('userRegistration');
-    // Redirect to the login page
     navigate('/');
   };
 
   return (
     <div className='chat'>
       <div className='chatInfo'>
-        <span className='chatTitle'>Chat App</span>
         <button className='logoutButton' onClick={handleLogout}>Logout</button>
+        <span className='chatTitle'>Chat App</span>
 
         <div className='chatIcons'>
           <img src={Cam} alt=''/>
