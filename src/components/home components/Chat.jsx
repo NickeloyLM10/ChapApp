@@ -8,7 +8,37 @@ import Input from './Input';
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
+  const [socket, setSocket] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:8080');
+
+    ws.onopen = () => {
+      console.log('Connected to WebSocket server');
+    };
+
+    ws.onmessage = (event) => {
+      console.log('Received from server:', event.data); // Log received data
+      const newMessage = { text: event.data, fromServer: true };
+      setMessages(prevMessages => [...prevMessages, newMessage]);
+
+      // Also save the new message to local storage
+      const existingMessages = JSON.parse(localStorage.getItem('messageData')) || [];
+      existingMessages.push(newMessage);
+      localStorage.setItem('messageData', JSON.stringify(existingMessages));
+    };
+
+    ws.onclose = () => {
+      console.log('Disconnected from WebSocket server');
+    };
+
+    setSocket(ws);
+
+    return () => {
+      ws.close();
+    };
+  }, []);
 
   const fetchMessages = () => {
     const storedMessages = localStorage.getItem('messageData');
@@ -32,6 +62,7 @@ const Chat = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('userRegistration');
+    localStorage.removeItem('messageData');
     navigate('/');
   };
 
@@ -48,7 +79,7 @@ const Chat = () => {
         </div>
       </div>
       <Messages messages={messages}/>
-      <Input fetchMessages={fetchMessages}/>
+      <Input socket={socket} fetchMessages={fetchMessages}/>
     </div>
   );
 }

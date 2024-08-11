@@ -1,0 +1,32 @@
+/* .message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    max-width: 80%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .message.owner {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+    border-radius: 8px 8px 0 8px;
+  }
+  
+  .message.server {
+    background-color: #f1f0f0;
+    align-self: flex-start;
+    border-radius: 8px 8px 8px 0;
+  }
+  
+  .messageContent {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .messageContent img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+  }
+   */

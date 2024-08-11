@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Input = ({fetchMessages}) => {
+const Input = ({socket, fetchMessages}) => {
   const [text, setText] = useState('');
 
   const handleTextChange = (e) => {
@@ -8,6 +8,13 @@ const Input = ({fetchMessages}) => {
   };
 
   const handleSend = async() => {
+    if (socket && text.trim() !== '') {
+      // Send message to the WebSocket server
+      socket.send(text);
+
+      // Clear input fields
+      setText('');
+    }
     // Create a new message object
     const newMessage = {
       text

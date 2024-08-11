@@ -53,7 +53,6 @@ const Register = () => {
     // Save user data to local storage
     localStorage.setItem('userRegistration', JSON.stringify(formData));
     
-    alert('Registration successful!');
     navigate('/'); // Redirect to login page after registration
   };
 
